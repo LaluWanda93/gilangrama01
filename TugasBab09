@@ -1,0 +1,89 @@
+#include <iostream>
+#include <vector>
+#include <conio.h>
+using namespace std;
+
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+class Antrian
+{
+	private:
+		int ukuranMaks;
+		vector<int>vectorAntrian;
+		int depan;
+		int belakang;
+		int jumlahitem;
+		
+	public:
+		Antrian(int s): ukuranMaks(s), depan(0), belakang(-1), jumlahitem(0)
+		{
+			vectorAntrian.resize(ukuranMaks);
+		}
+		
+	void sisip(int j)
+	{
+		if(belakang == ukuranMaks-1)
+		belakang = -1;
+		
+		vectorAntrian[++belakang]= j;
+		jumlahitem++;
+	}
+	
+	int hapus()
+	{
+		int temp = vectorAntrian[depan++];
+		if(depan == ukuranMaks)
+		depan = 0;
+		
+		jumlahitem--;
+		return temp;
+	}
+	
+	int intipDepan()
+	{
+		return vectorAntrian[depan];
+	}
+	
+	bool apaKosong()
+	{
+		return(jumlahitem==0);
+	}
+	
+	bool apaPenuh()
+	{
+		return(jumlahitem==ukuranMaks);
+	}
+	
+	int ukuran()
+	{
+		return jumlahitem;
+	}
+};
+
+int main() 
+{
+	Antrian antrian(5);
+	
+	antrian.sisip(20);
+	antrian.sisip(30);
+	antrian.sisip(40);
+	
+	antrian.hapus();
+	antrian.hapus();
+	antrian.hapus();
+	
+	antrian.sisip(50);
+	antrian.sisip(60);
+	antrian.sisip(70);
+	antrian.sisip(80);
+	
+	while( !antrian.apaKosong())
+	{
+		int n= antrian.hapus();
+		cout<<n<<"";
+	}
+	
+	cout<<endl;
+	getch();
+	return 0;
+}
