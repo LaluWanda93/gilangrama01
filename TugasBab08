@@ -1,0 +1,130 @@
+#include <iostream>
+#include <conio.h>
+
+using namespace std;
+
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+class Simpul
+{
+	public:
+		double dData;
+		
+		Simpul* pBrktnya;
+		Simpul(double dd): dData(dd), pBrktnya(NULL){}
+		
+		void tampilSimpul()
+		{
+			cout<<dData<<"";
+		}
+};
+
+class SenaraiBerantai
+{
+	private:
+		Simpul* pPertama;
+		
+	public:
+		SenaraiBerantai(): pPertama(NULL)
+		{}
+		
+		~SenaraiBerantai()
+		{
+			Simpul* pSkrg = pPertama;
+			while(pSkrg != NULL)
+			{
+				Simpul* pLama = pSkrg;
+				pSkrg = pSkrg->pBrktnya;
+				delete pLama;
+			}
+		}
+		
+		bool apaKosong()
+		{
+			return (pPertama==NULL);
+		}
+		
+		void sisipPertama(double dd)
+		{
+			Simpul* pSimpulBaru = new Simpul(dd);
+			pSimpulBaru->pBrktnya= pPertama;
+			pPertama = pSimpulBaru;
+		}
+		
+		double hapusPertama()
+		{
+			Simpul*pTemp = pPertama;
+			pPertama = pPertama->pBrktnya;
+			double kunci = pTemp->dData;
+			delete pTemp;
+			return kunci;
+		}
+		
+		void tampilSenarai()
+		{
+			Simpul* pSkrg = pPertama;
+			while(pSkrg != NULL)
+			{
+				pSkrg->tampilSimpul();
+				pSkrg = pSkrg->pBrktnya;
+			}
+			cout<<endl;
+		}
+};
+
+class TumpukanSenarai
+{
+	private:
+		SenaraiBerantai* pSenarai;
+	public:
+		TumpukanSenarai()
+		{
+			pSenarai = new SenaraiBerantai;
+		}
+		
+		~TumpukanSenarai()
+		{
+			delete pSenarai;
+		}
+		
+	void push(double j)
+	{
+		pSenarai->sisipPertama(j);
+	}
+	
+	double pop()
+	{
+		return pSenarai->hapusPertama();
+	}
+	
+	bool apaKosong()
+	{
+		return (pSenarai->apaKosong());
+	}
+	
+	void tampilTumpukan()
+	{
+		cout<<"Tumpukan(atas->bawah) :";
+		pSenarai->tampilSenarai();
+	}
+};
+
+int main() {
+	
+	TumpukanSenarai tumpukan;
+	
+	tumpukan.push(20);
+	tumpukan.push(40);
+	tumpukan.tampilTumpukan();
+	
+	tumpukan.push(60);
+	tumpukan.push(80);
+	tumpukan.tampilTumpukan();
+	
+	tumpukan.pop();
+	tumpukan.pop();
+	tumpukan.tampilTumpukan();
+	
+	getch();
+	return 0;
+}
