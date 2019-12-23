@@ -1,0 +1,155 @@
+#include <iostream>
+#include <cstdio>
+#include <sstream>
+#include <algorithm>
+#include <conio.h>
+
+using namespace std;
+
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+struct simpulAVL
+{
+	int data;
+	struct simpulAVL *kiri;
+	struct simpulAVL *kanan;
+};
+
+class PohonAVL
+{
+	public:
+		int tinggi(simpulAVL *);
+		int selisih(simpulAVL *);
+		simpulAVL *rotasi_rr(simpulAVL *);
+		simpulAVL *rotasi_ll(simpulAVL *);
+		simpulAVL *rotasi_lr(simpulAVL *);
+		simpulAVL *rotasi_rl(simpulAVL *);
+		simpulAVL *setimbang(simpulAVL *);
+		simpulAVL *sisip(simpulAVL *, int);
+		void tampil(simpulAVL *, int);
+		void inorder(simpulAVL *);
+		void preorder(simpulAVL *);
+		void postorder(simpulAVL *);
+		PohonAVL()
+		{
+			akar = NULL;
+		}
+};
+
+
+int main()
+{
+	int pilihan, item;
+	PohonAVL avl;
+	while (1)
+	{
+		cout<<"\n----------------------------"<<endl;
+		cout<<"Implementasi Pohon AVL"<<endl;
+		cout<<"\n----------------------------"<<endl;
+		cout<<"1. Sisipkan element ke dalam pohon"<<endl;
+		cout<<"2. Tampilkan Pohon AVL Seimbang"<<endl;
+		cout<<"3. Penjelajahan InOrder"<<endl;
+		cout<<"4. Penjelasan PreOrder"<<endl;
+		cout<<"5. Penjelajahan PostOrder"<<endl;
+		cout<<"6. Keluar"<<endl;
+		cout<<"Masukan pilihan Anda: ";
+		
+		cin>>pilihan;
+		switch(pilihan)
+		{
+			case 1:
+				cout<<"Masukan nilai yang akan disisipkan: ";
+				cin>>item;
+				akar = avi.sisip(akar, item);
+				break;
+			
+			case 2:
+				if(akar == NULL)
+				{
+					cout<<"Pohon kosong"<<endl;
+					continue;
+				}
+				cout<<"Pohon AVL Seimbang: "<<endl;
+				avl.tampil(akar, 1);
+				break;
+				
+			case 3:
+				cout<<"Penjelasan Inorder: "<<endl;
+				avl.inorder(akar);
+				cout<<endl;
+				break;
+				
+			case 4:
+				cout<<"Penjelajahan Preorder: "<<endl;
+				avl.preorder(akar);
+				cout<<endl;
+				break;
+				
+			case 5:
+				cout<<"Penjelajahan Postorder: "<<endl;
+				avl.postorder(akar);
+				cout<<endl;
+				break;
+				
+			case 6:
+				exit(1);
+				break;
+				
+			default:
+				cout<<"Pohon salah"<<endl;
+		}
+	}
+	getch();
+	return 0;
+}
+
+
+int PohonAVL::tinggi(simpulAVL *temp)
+{
+	int h=0;
+	if (temp != NULL)
+	{
+
+	int tinggiL = tinggi (temp->kiri);
+	int tinggiR = tinggi (temp->kanan);
+	int tinggiMaks = max (tinggiL, tinggiR);
+	h = tinggiMaks + 1;
+	}
+return h;
+}
+
+
+int PohonAVL::selisih(simpulAVL *temp)
+{
+	int tinggiL = tinggi(temp->kiri);
+	int tinggiR = tinggi(temp->kanan);
+	int faktorB = tinggiL - tinggiR;
+	return factorB;
+}
+
+simpulAVL *PohonAVL::rotasi_rr(simpulAVL *induk)
+{
+	simpulAVL *temp;
+	temp = induk->kanan;
+	induk->kiri = induk;
+	return temp;
+}
+
+simpulAVL *PohonAVL::rotasi_ll(simpulAVL *induk)
+{
+	simpulAVL *temp;
+	temp = induk->kiri;
+	induk->kiri = temp->kanan;
+	temp->kanan;
+	return temp;
+}
+
+simpulAVL *PohonAVL::rotasi_lr(simpulAVL *induk)
+{
+	simpulAVL *temp;
+	temp = induk->kiri;
+	induk->kiri  = rotasi_rr(temp);
+	return rotasi_ll(induk);
+}
+
+simpulAVL
