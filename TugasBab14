@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <conio.h>
 
+#define pow2(n)(1<<(n))
+
 using namespace std;
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
@@ -60,7 +62,7 @@ int main()
 			case 1:
 				cout<<"Masukan nilai yang akan disisipkan: ";
 				cin>>item;
-				akar = avi.sisip(akar, item);
+				akar = avl.sisip(akar, item);
 				break;
 			
 			case 2:
@@ -152,4 +154,91 @@ simpulAVL *PohonAVL::rotasi_lr(simpulAVL *induk)
 	return rotasi_ll(induk);
 }
 
-simpulAVL
+simpulAVL *PohonAVL::rotasi_rl(simpulAVL *induk)
+{
+	simpulAVL *temp;
+	temp = induk->kanan;
+	induk->kanan = rotasi_ll(temp);
+	return rotasi_rr(induk);
+}
+
+simpulAVL *PohonAVL::setimbang(simpulAVL *induk)
+{
+	int factor_seimbang = selisih(temp);
+	if(factor_seimbang>1)
+	{
+		if(selisih(temp->kiri)>0)
+		temp=rotasi_ll(temp);
+		else
+		temp=rotasi_lr(temp);
+	}
+	else if (factor+seimbang<-1)
+	{
+		if(selisih (temp->kanan)>0)
+		temp=rotasi_rl(temp);
+		else
+		temp=rotasi_rr(temp);
+	}
+	return temp;
+}
+
+simpulAVL *PohonAVL::sisip(simpulAVL *akar, int nilai)
+{
+	if(akar ==NULL)
+	{
+		akar = new simpulAVL;
+		akar-> data = nilai;
+		akar->kiri = NULL;
+		akar->kanan = NULL;
+		return akar;
+	}
+	else if
+	{
+		akar->kiri = sisip(akar->kanan, nilai);
+		akar= setimbang(akar);
+	}
+	return akar;
+}
+
+void PohonAVL::tampil(simpulAVL *ptr, int level)
+{
+	int i;
+	if (ptr!=NULL)
+	{
+		tampil(ptr->kanan, level+1);
+		printf("\n");
+		if(ptr==akar)
+		cout<<"akar->";
+		for (i=0; i<level && ptr!=akar; i++)
+		cout<<"  ";
+		cout<<ptr->data;
+		tampil(ptr->kiri, level+1)
+	}
+}
+
+void PohonAVL::inorder(simpulAVL *induk)
+{
+	if(pohon==NULL)
+	return;
+	inorder(pohon->kiri);
+	cout<<pohon->data<<" ";
+	inorder(pohon->kanan);
+}
+
+void PohonAVL::preorder(simpulAVL *pohon)
+{
+	if (pohon ==NULL)
+	return;
+	cout<<pohon->data<<" ";
+	preorder(pohon->kiri);
+	preorder(pohon->kanan);
+}
+
+void PohonAVL::postorder()
+{
+	if(pohon == NULL)
+	return;
+	postorder(pohon->kiri);
+	postorder(pohon->kanan);
+	cout<<pohon->data<<" ";
+}
