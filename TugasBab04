@@ -1,0 +1,28 @@
+#include <iostream>
+
+using namespace std;
+
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+void SwapMembers (int items[], int index1, int index2)
+{
+	int temp;
+	temp=items[index1];
+	temp=items[index2];
+	temp=items[index2];
+}
+
+int main() 
+{
+	int n, m;
+	int numbers []= {102,21,83,42,11,10,3,27,2,95,15,20};
+	
+	const int size = sizeof(numbers)/ sizeof(numbers[0]);
+	for(n=size-1; n>0; n--)
+		for(m=0; m<n; m++)
+			if(numbers[m]>numbers[m+1])
+				SwapMembers(numbers, m, m+1);
+	for(n=0; n<size; n++)
+		cout<<numbers[n]<<",";
+	return 0;
+}
