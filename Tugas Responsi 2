@@ -1,0 +1,350 @@
+#include <iostream>
+#include <conio.h>
+#include <stdlib.h>
+#include <iomanip>
+
+using namespace std;
+//3. ================================================== 
+struct time{
+	int jam;
+	int min;
+};
+
+struct rencana{
+	struct time *awal;
+	struct time *akhir;
+};
+
+struct time jk ={1,2};
+struct time kl ={3,4};
+struct rencana kerja ={&jk,&kl};
+//===================================================
+//---------------------------------------------------
+struct tree_node
+{
+tree_node* left;
+tree_node* right;
+int data;
+
+};
+
+tree_node* root;
+
+bool isEmpty()
+{return root==NULL;}
+
+void insert(int d)
+{
+tree_node* t = new tree_node;
+tree_node* parent;
+t->data = d;
+t->left = NULL;
+t->right = NULL;
+parent = NULL;
+if(isEmpty())root = t;
+else
+{
+tree_node* curr;
+curr = root;
+
+while(curr!=NULL)
+{
+parent = curr;
+if(t->data > curr->data) curr = curr->right;
+else curr = curr->left;
+}
+
+if(t->data < parent->data)
+parent->left = t;
+else
+parent->right = t;
+}
+}
+
+void inorder(tree_node* p)
+{
+if(p!=NULL)
+{
+if(p->left)
+inorder(p->left);
+cout<<" "<<p->data<<" ";
+if(p->right)
+inorder(p->right);
+}
+else
+return;
+}
+
+
+void print_inorder()
+{
+inorder(root);
+}
+
+int count(tree_node* p)
+{
+if(p==NULL)return 0;
+return count(p->left) + count(p->right) + 1;
+}
+
+int height(tree_node* p)
+{
+if(p==NULL)return 0;
+int u = height(p->left),v = height(p->right);
+if(u > v)
+return u+1;
+else
+return v+1;
+}
+
+void cari_terbesar(tree_node* p)
+{
+if(p==NULL)
+return;
+else
+if(p->right==NULL)
+{
+cout<<" "<<p->data<<" ";
+return;
+}
+else
+{
+cari_terbesar(p->right);
+return;
+}
+}
+//--------------------------------------------------------------
+
+int main()
+{
+	system("cls");
+	unsigned int pilihan;
+	bool ulang;
+	ulang = true;
+	int data[7]; 
+	int i;
+	
+int NumList[8]={5,34,32,25,75,42,22,2};
+int Swap;
+
+int An[4];
+int menu;
+char kbl;
+int sts=0;
+int z;
+
+root=NULL;
+int ch,tmp;
+
+
+		
+	do
+	{
+		system("cls");
+		cout<<"==============\n";
+		cout<<"Menu Pilihan\n";
+		cout<<"==============\n";
+		cout<<"1. Contoh Penggunaan Searching\n";
+		cout<<"2. Contoh Penggunaan Array\n";
+		cout<<"3. Contoh Penggunaan Struct dan Pointer\n";
+		cout<<"4. Contoh Penggunaan Sorting\n";
+		cout<<"5. Contoh Penggunaan Antrian\n";
+		cout<<"6. Contoh Penggunaan Pohon Binari\n";
+		cout<<"7. Exite\n";
+		cout<<" ";
+		cout<<"Masukan Pilihan Anda [1/2/3/4/5] : ";
+		cin>>pilihan;
+		cout<<"\n\n";
+		
+		switch(pilihan)
+		{
+			case 1: 
+				cout<<endl;
+				cout<<"  Nama        : Gilang Ramadhan "<<endl;
+				cout<<"  Kelas       : Teknik Informatika "<<endl;
+				cout<<"  Mata Kuliah : Praktikum Struktur Data"<<endl;
+				cout<<endl;
+				
+				int Nilai[20];
+				int i,N,angka,bilangan;
+				cout<<"  Masukan Banyaknya Bilangan = ";cin>>N;
+				
+				//membaca elemen array
+				for(i=0;i<N;i++){
+				cout<<"  Masukan Elemen Ke -"<<i<<" = ";cin>>Nilai[i]; }
+				
+				//mencetak elemen arrray 
+				cout<<"  Deretan Bilangan       = ";
+				for(i=0;i<N;i++)
+				cout<<Nilai[i]<<" ";
+				cout<<endl<<endl;
+				cout<<"  Masukan Bilangan Yang Dicari  = ";
+				cin>>bilangan;
+				cout<<endl;  
+				
+				//melakukan pencarian
+				i=0;
+				do{
+				if(Nilai[i]==bilangan)
+				angka=Nilai[i];
+				i++;}
+				while(i<N);
+				if(angka==bilangan)
+				cout<<"  Bilangan "<<bilangan<<" Ditemukan";
+				else
+				cout<<"  Bilangan "<<bilangan<<" Tidak Ditemukan";
+				getch();
+				break;
+			
+			case 2:
+				cout<<"=Deklarasi array Menggunakan Perulangan for=\n\n"<<endl;
+				for(int g=0;g<5;g++){
+					cout<<"Masukan data pada element ke- "<<g<<"= ";
+					cin>>data[g];
+				}
+				cout<<endl;
+				//menampilkan element data
+				for(int g=0;g<5;g++){
+					cout<<"Data baris ke- "<<g<<"="<<data[g];
+				}
+				return 0;
+				getch();
+				break;
+				
+			case 3:
+				cout<<"Penggunan Struct yg terdapat pointer\n"<<endl;
+				
+				kerja.akhir->min = 37;
+				cout<<kerja.awal->jam<<""<< kerja.awal->min<<""<<kerja.akhir->jam<<""<< kerja.akhir->min<<endl;
+				
+				getch();
+				break;
+				
+			case 4:
+				
+				cout<<"Penggunaan Sorting(pengurutan\n\n";
+				cout<<"Data Sebelum Diurutkan: \n";
+				for(int i=0; i<8; i++)
+					for(int x=0; x<7; x++)
+						if(NumList[x] > NumList[x+1])
+						{
+							Swap = NumList[x];
+							NumList[x] = NumList[x+1];
+							NumList[x+1] = Swap;
+						}
+				cout<<"Data Setelah Disorting: \n";
+				for(int y=0; y<8; y++)
+					cout<<setw(3)<<NumList[y];
+					cout<<endl<<endl;
+	
+				getch();
+				break;
+				
+			case 5:
+					do{
+					system("cls");
+					cout<<"\t\tPROGRAM QUEUE SEDERHANA\n\n";
+					cout<<"    1.memasukkan data (push)\n    2.mengambil data (pop)\n    3.tampil\n\n    pilih menu yang anda inginkan [1-3]=  ";
+					cin>>menu;
+					    if(menu==1){
+					       cout<<"push data pada queue\n";
+					       cout<<"masukkan data ";
+					      cin>>An[sts];
+					       sts++;}
+					   else if(menu==2){
+					       cout<<"pop data "<<An[0]<<" telah di hapus\n";
+					      An[0]=NULL;
+					          for(int z=0;z<sts;z++){
+					         An[z]=An[z+1];
+					         }
+					         sts--;
+					         }
+					   else if(menu==3){
+					   cout<<"isi dari queue\n";
+					       for(z=0;z<sts;z++){
+					      cout<<An[z]<<"    ";
+					      }
+					      }
+					      cout<<"\nkembali ke menu awal [y/t]= ";
+					      cin>>kbl;
+					      }
+					      while(kbl=='y' || kbl=='t');
+
+			                break;
+
+				break;
+				
+			case 6:
+				while(1)
+				{
+				system("cls"); // Saya mengganti scrclr() karena dicompiler sy tidak ada fungsi tersebut
+				cout<<endl;
+				cout<<"Menu Utama Operasi Pohon Biner"<<endl;
+				cout<<"--------------------"<<endl;
+				cout<<"1. Insert/Tambah Data"<<endl;
+				cout<<"2. Kunjungan In-Order"<<endl;
+				//cout<<"3. Kunjungan Pre-Order"<<endl;
+				//cout<<"4. Kunjungan Post-Order"<<endl;
+				//cout<<"5. Hapus Data"<<endl;
+				cout<<"6. Menghitung Jumlah Node"<<endl;
+				cout<<"7. Menghitung Tinggi Pohon"<<endl;
+				//cout<<"8. Mencari Data Terkecil"<<endl;
+				cout<<"9. Mencari Data Terbesar"<<endl;
+				cout<<"10. Exit"<<endl;
+				cout<<"Pilihan Anda : ";
+				cin>>ch;
+				cout<<endl;
+				switch(ch)
+				{
+				case 1 : cout<<"Masukan Data : ";
+				cin>>tmp;
+				insert(tmp);
+				break;
+				case 2 : cout<<endl;
+				cout<<"Kunjungan In-Order"<<endl;
+				cout<<"---------------"<<endl;
+				print_inorder();getch();
+				break;
+				case 6 : cout<<"Menghitung Jumlah Node"<<endl;
+				cout<<"------------------"<<endl;
+				cout<<"Jumlah Node = "<<count(root);
+				getch();
+				break;
+				case 7 : cout<<"Menghitung Tinggi Pohon"<<endl;
+				cout<<"------------------"<<endl;
+				cout<<"Tinggi Pohon = "<<height(root);
+				getch();
+				break;
+				case 9 : cout<<"Mecari Data Terbesar"<<endl;
+				cout<<"------------------"<<endl;
+				cout<<"Data Terbesar Adalah = "<<endl;
+				cari_terbesar(root);
+				getch();
+				break;
+				case 10 : return 0;
+				break;
+				default: cout<<"Pilihan yang Anda Masukkan salah!"<<endl;
+				getch();
+				break;
+				}
+				}
+				
+				break;	
+					
+			case 7:
+				cout<<"Terimakasih\n";
+				
+				ulang=false;
+				break;
+				
+			default:
+			cout<<"Pilihan yg Anda masukan salah. pilih yg diijinkan hanya : 1/2/3/4\n";
+			cout<<"\n <Tekan ENTER untuk kembali ke Menu Pilihan>";
+			getch();
+			break;		
+		}
+	}
+	while(ulang);
+	getch();
+	return 0;
+}
