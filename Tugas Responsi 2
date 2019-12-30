@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <iomanip>
 
+// untuk TUMPUKAN sudah ada di program jadi tidak saya masukan ke pilihan,
+
 using namespace std;
 //3. ================================================== 
 struct time{
